@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+
 def jednoliko_gibanje(F,m):
     a=[]
     v=[]
