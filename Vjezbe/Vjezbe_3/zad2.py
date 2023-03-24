@@ -1,10 +1,10 @@
 def pet(n):
     p=5
     for i in range(n):
-        p+=1/3
+        p+=1.0/3.0
     for i in range(n):
-        p-=1/3
+        p-=1.0/3.0
     return p
-print(pet(200))
-print(pet(2000))
-print(pet(20000))
+print("%.15f" % pet(200))
+print("%.15f" % pet(2000))
+print("%.15f" % pet(20000))

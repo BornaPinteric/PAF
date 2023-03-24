@@ -1,4 +1,5 @@
 import math
+import matplotlib.pyplot as plt
 M=[0.052, 0.124, 0.168, 0.236, 0.284, 0.336]
 phi=[0.1745, 0.3491, 0.5236, 0.6981, 0.8727, 1.0472]
 def modul_torzije(M,phi):
@@ -15,4 +16,10 @@ def modul_torzije(M,phi):
     D=mp/p2
     s=math.sqrt((m2/p2-D**2)/len(M))
     return D,s
-print(modul_torzije(M,phi))
+D,s=modul_torzije(M,phi)
+print(D,s)
+plt.plot(phi,[D*p for p in phi])
+plt.plot(phi,M,".")
+plt.xlabel("phi [rad]")
+plt.ylabel("M [Nm]")
+plt.show()
