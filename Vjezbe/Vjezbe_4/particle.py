@@ -26,7 +26,7 @@ class Particle:
         self.y+=self.v*np.sin(self.k/180.*np.pi)*dt
     def range(self,dt=0.05):
         x0=self.x
-        while self.y>0:
+        while self.y>=0:
             self.__move(dt)
         R=abs(self.x-x0)
         self.reset()
@@ -36,7 +36,7 @@ class Particle:
         Y=[]
         X.append(self.x)
         Y.append(self.y)
-        while self.y>0:
+        while self.y>=0:
             self.__move(dt)
             X.append(self.x)
             Y.append(self.y)
