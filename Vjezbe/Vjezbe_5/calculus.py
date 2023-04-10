@@ -3,9 +3,9 @@ def d_3(f,x,e=0.01):
     return (f(x+e)-f(x-e))/(2*e)
 def d_2(f,x,e=0.01):
     return (f(x+e)-f(x))/e
-def der_liste(f,x0,xn,e=0.01,metoda="",dx=0.01):
+def der_liste(f,x0,xn,e=0.01,metoda="3step",dx=0.01):
     X=[x0]
-    if metoda=="":
+    if metoda=="3step":
         D=[d_3(f,x0,e)]
     else:
         D=[d_2(f,x0,e)]
@@ -22,13 +22,13 @@ def int_p(f,x0,xn,n):
     I_l=0
     I_d=0
     for i in range(n):
-        I_l+=dx*X[i]
-        I_d+=dx*X[i+1]
+        I_l+=dx*f(X[i])
+        I_d+=dx*f(X[i+1])
     return I_l,I_d
 def int_t(f,x0,xn,n):
     X=np.linspace(x0,xn,n+1)
     dx=(xn-x0)/n
     I=0
     for i in range(n):
-        I+=dx*(X[i]+X[i+1])/2
+        I+=dx*(f(X[i])+f(X[i+1]))/2
     return I
