@@ -22,9 +22,9 @@ iL=[]
 iD=[]
 iT=[]
 for n in nlist:
-    iL.append(calc.int_p(kubna,0,1,n)[0])
-    iD.append(calc.int_p(kubna,0,1,n)[1])
-    iT.append(calc.int_t(kubna,0,1,n))
+    iL.append(calc.int_p(kubna,0.,1.,n)[0])
+    iD.append(calc.int_p(kubna,0.,1.,n)[1])
+    iT.append(calc.int_t(kubna,0.,1.,n))
 #int od 0 do 1 x^3 = 1/4
 axs[2].plot(nlist,[0.25]*len(nlist))
 axs[2].plot(nlist,iL,"r.")
