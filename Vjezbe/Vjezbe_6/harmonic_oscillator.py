@@ -51,12 +51,41 @@ class HarmonicOscillator:
         ax[2].plot(T,A)
         ax[2].set(xlabel="t[s]",ylabel="a[m/s^2]")
         plt.show()
-    def period_err(self):
-        gr=[]
-        T=2*np.pi*np.sqrt(self.m/self.k)
-        for dt in np.linspace(0.01,0.1,500):
-            gr.append(abs(T-self.period(dt))/T*100)
-        plt.plot(np.linspace(0.01,0.1,500),gr)
-        plt.xlabel("dt[s]")
-        plt.ylabel("err[%]")
+    def osc_err(self):
+        t1=[]
+        T1=self.period(0.05)
+        X1=[]
+        t=0
+        while t<T1:
+            X1.append(self.x)
+            self.__move(0.05)
+            t+=0.05
+            t1.append(t)
+        self.reset()
+        t2=[]
+        T2=self.period(0.01)
+        X2=[]
+        t=0
+        while t<T2:
+            X2.append(self.x)
+            self.__move(0.01)
+            t+=0.01
+            t2.append(t)
+        self.reset()
+        t3=[]
+        T3=self.period(0.001)
+        X3=[]
+        t=0
+        while t<T3:
+            X3.append(self.x)
+            self.__move(0.001)
+            t+=0.001
+            t3.append(t)
+        self.reset()
+        plt.plot(t3,X3,".",markersize=0.5)
+        plt.plot(t2,X2,".",markersize=1)
+        plt.plot(t1,X1,".",markersize=2)
+        plt.xlabel("t[s]")
+        plt.ylabel("x[m]")
+        plt.legend(["dt=0.001","dt=0.01","dt=0.05"], loc ="lower right")
         plt.show()
