@@ -37,7 +37,7 @@ def plot_2(b1,b2,T=365,dt=24*3600):
     b1.reset()
     b2.reset()
     plt.plot(X1,Y1)
-    plt.plot(X2,Y2)
+    plt.plot(X2,Y2,'o')
     plt.xlabel("x[m]")
     plt.ylabel("y[m]")
     plt.title("Sun-Earth system")
