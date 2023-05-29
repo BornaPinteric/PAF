@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation as ani
 class Planet:
     def __init__(self,name,m,pos0,v0):
         self.name=name
@@ -7,13 +8,17 @@ class Planet:
         self.pos=np.array(pos0)
         self.v=np.array(v0)
         self.a=(0,0)
-        self.state0=(self.pos,self.v)
+        self.state0=(pos0,v0)
     def reset(self):
-        self.pos,self.v=self.state0
+        self.pos=np.array(self.state0[0])
+        self.v=np.array(self.state0[1])
         self.a=(0,0)
 class Universe:
     def __init__(self,planets):
         self.P=planets
+    def resetall(self):
+        for p in self.P:
+            p.reset()
     def __move(self,dt): 
         G=6.67408/(10**11)
         for i in range(len(self.P)):
@@ -30,8 +35,11 @@ class Universe:
             p.v+=p.a*dt
             p.pos+=p.v*dt
     def simulate(self,T=365,dt=24*3600):
+        fig,ax=plt.subplots(1)
+        ax.set_aspect("equal")
         Legend=[]
         for p in self.P:
+            self.resetall()
             X=[]
             Y=[]
             X.append(p.pos[0])
@@ -42,11 +50,24 @@ class Universe:
                 X.append(p.pos[0])
                 Y.append(p.pos[1])
                 t+=dt
-            p.reset()
-            plt.plot(X,Y)
+            ax.plot(X,Y)
             Legend.append(p.name)
-        plt.xlabel("x[m]")
-        plt.ylabel("y[m]")
-        plt.title("Solar system")
-        plt.legend(Legend)
+        ax.set_xlabel("x[m]")
+        ax.set_ylabel("y[m]")
+        ax.set_title("Solar system")
+        ax.legend(Legend)
+        self.resetall()
+        point,=ax.plot(0,0,'ko',markersize=12)
+        def animation_function(i):
+            x=[]
+            y=[]
+            self.__move(dt)
+            self.__move(dt)
+            for p in self.P:
+                x.append(p.pos[0])
+                y.append(p.pos[1])
+            point.set_xdata(x)
+            point.set_ydata(y)
+            return point,
+        animation=ani(fig,func=animation_function,frames=np.arange(0,T*24*3600,2*dt),interval=1,repeat=False)
         plt.show()
