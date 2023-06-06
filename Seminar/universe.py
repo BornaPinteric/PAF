@@ -61,13 +61,12 @@ class Universe:
         def animation_function(i):
             x=[]
             y=[]
-            self.__move(dt)
-            self.__move(dt)
             for p in self.P:
                 x.append(p.pos[0])
                 y.append(p.pos[1])
             point.set_xdata(x)
             point.set_ydata(y)
+            self.__move(dt)
             return point,
-        animation=ani(fig,func=animation_function,frames=np.arange(0,T*24*3600,2*dt),interval=1,repeat=False)
+        animation=ani(fig,func=animation_function,frames=np.arange(0,T*24*3600+1,dt),interval=1,repeat=False)
         plt.show()
